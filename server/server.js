@@ -22,18 +22,17 @@ io.on('connection', (socket) => {
     io.to(socket.id).emit('whiteboard-state', elements);
 
     socket.on('element-update', (elementData) => {
-        updateElementsData(elementData)
-    })
+        updateElementsData(elementData);
+        socket.broadcast.emit('element-update', elementData);
+    });
 })
 
 const updateElementsData = (elementData) => {
     const index = elements.findIndex((element) => element?.id === elementData?.id);
-
-    if (index === -1){
+    if (index === -1) {
         elements.push(elementData);
         return;
     }
-
     elements[index] = elementData;
 };
 
