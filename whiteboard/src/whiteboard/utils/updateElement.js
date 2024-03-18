@@ -20,6 +20,20 @@ export const updateElement = ({ x1, y1, x2, y2, toolType, id, index }, elements)
             break;
         }
 
+        case toolTypes.PENCIL: {
+            elementsCopy[index] = {
+                ...elementsCopy[index],
+                points: [
+                    ...elementsCopy[index].points,
+                    { x: x2, y: y2 },
+                ]
+            }
+            const updatedPencilElement = elementsCopy[index];
+            store.dispatch(setElements(elementsCopy));
+            emitElementUpdates(updatedPencilElement);
+            break;
+        }
+
         default:
             throw new Error('Something went wrong when updating element')
     }
