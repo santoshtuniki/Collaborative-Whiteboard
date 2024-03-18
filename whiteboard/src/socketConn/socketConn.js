@@ -21,8 +21,16 @@ export const connectWithSocketServer = () => {
     socket.on('element-update', (elementData) => {
         store.dispatch(updateElement(elementData));
     });
+
+    socket.on('whiteboard-clear', () => {
+        store.dispatch(setElements([]));
+    });
 };
 
 export const emitElementUpdates = (elementData) => {
     socket.emit('element-update', elementData)
+};
+
+export const emitClearCanvas = () => {
+    socket.emit('whiteboard-clear');
 };
