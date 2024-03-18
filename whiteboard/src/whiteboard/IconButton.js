@@ -11,8 +11,8 @@ export const IconButton = ({ src, type }) => {
     const selectedToolType = useSelector((state) => state.whiteboard.tool);
 
     const handleToolChange = () => {
-        dispatch(setToolType(type))
-    }
+        dispatch(setToolType(type));
+    };
 
     return (
         <button
