@@ -24,6 +24,10 @@ const positionWithinElement = (x, y, element) => {
             return topLeft || topRight || bottomLeft || bottomRight || inside;
         }
 
+        case toolTypes.TEXT: {
+            return insidePoint(x, y, element, cursorPositions.INSIDE);
+        }
+
         default:
             break;
     }

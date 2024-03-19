@@ -111,7 +111,10 @@ const Whiteboard = () => {
             case toolTypes.SELECTION: {
                 const element = getElementAtPosition(clientX, clientY, elements);
 
-                if (element && element.type === toolTypes.RECTANGLE) {
+                if (element && (
+                    element.type === toolTypes.RECTANGLE ||
+                    element.type === toolTypes.TEXT
+                )) {
                     element?.position === cursorPositions.INSIDE ?
                         setAction(actions.MOVING) :
                         setAction(actions.RESIZING);
@@ -163,7 +166,7 @@ const Whiteboard = () => {
             action === actions.MOVING &&
             selectedElement
         ) {
-            const { id, x1, y1, x2, y2, type, offsetX, offsetY } = selectedElement;
+            const { id, x1, y1, x2, y2, type, offsetX, offsetY, text } = selectedElement;
 
             const width = x2 - x1;
             const height = y2 - y1;
@@ -181,6 +184,7 @@ const Whiteboard = () => {
                     x2: newX1 + width,
                     y2: newY1 + height,
                     toolType: type,
+                    text,
                 }, elements)
             }
         }
