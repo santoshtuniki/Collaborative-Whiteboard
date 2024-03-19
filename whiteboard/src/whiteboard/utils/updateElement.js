@@ -7,6 +7,16 @@ import { toolTypes } from "../../constants";
 import { createElement } from "./createElement";
 import { emitElementUpdates } from '../../socketConn/socketConn';
 
+export const updatePencilElementWhenMoving = ({ index, newPoints }, elements) => {
+    const elementsCopy = [...elements];
+    const updatedPencilElement = {
+        ...elementsCopy[index],
+        points: newPoints
+    }
+    store.dispatch(setElements(elementsCopy));
+    emitElementUpdates(updatedPencilElement);
+};
+
 export const updateElement = ({ x1, y1, x2, y2, toolType, id, index, text = '' }, elements) => {
     const elementsCopy = [...elements];
 

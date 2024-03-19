@@ -12,7 +12,7 @@ import { Menu } from './Menu';
 import { actions, cursorPositions, toolTypes } from '../constants';
 import {
     createElement, updateElement, drawElement, adjustmentRequired, adjustElementCoordinates,
-    getElementAtPosition, getCursorForPosition, getResizedCoordinates
+    getElementAtPosition, getCursorForPosition, getResizedCoordinates, updatePencilElementWhenMoving
 } from './utils';
 
 const Whiteboard = () => {
@@ -122,8 +122,15 @@ const Whiteboard = () => {
 
                     const offsetX = clientX - element.x1;
                     const offsetY = clientY - element.y1;
-                    console.log({ ...element, offsetX, offsetY });
                     setSelectedElement({ ...element, offsetX, offsetY });
+                }
+
+                if (element && element.type === toolTypes.PENCIL) {
+                    setAction(actions.MOVING);
+
+                    const xOffsets = element.points?.map((point) => clientX - point.x);
+                    const yOffsets = element.points?.map((point) => clientY - point.y);
+                    setSelectedElement({ ...element, xOffsets, yOffsets });
                 }
 
                 break;
@@ -160,7 +167,26 @@ const Whiteboard = () => {
             const element = getElementAtPosition(clientX, clientY, elements);
             event.target.style.cursor = element ? getCursorForPosition(element?.position) : 'default';
         }
-        console.log(selectedElement);
+
+        if (
+            toolType === toolTypes.SELECTION &&
+            action === actions.MOVING &&
+            selectedElement?.type === toolTypes.PENCIL
+        ) {
+            const newPoints = selectedElement.points.map((_, index) => ({
+                x: clientX - selectedElement.xOffsets[index],
+                y: clientY - selectedElement.yOffsets[index],
+            }))
+
+            const index = elements.findIndex((el) => el?.id === selectedElement?.id);
+            if (index > -1) {
+                updatePencilElementWhenMoving({
+                    index,
+                    newPoints
+                }, elements)
+            }
+            return;
+        }
 
         if (
             toolType === toolTypes.SELECTION &&

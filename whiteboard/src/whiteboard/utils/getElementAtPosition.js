@@ -5,13 +5,13 @@ const distance = (a, b) => {
     return Math.sqrt(Math.pow(a.x - b.x, 2) + Math.pow(a.y - b.y, 2));
 }
 
-const onLine = ({ x1, y1, x2, y2, x, y }) => {
+const onLine = ({ x1, y1, x2, y2, x, y, maxDistance = 1 }) => {
     const a = { x: x1, y: y1 };
     const b = { x: x2, y: y2 };
     const c = { x, y };
 
     const offset = distance(a, b) - (distance(a, c) + distance(b, c));
-    return Math.abs(offset) < 1 ? cursorPositions.INSIDE : null;
+    return Math.abs(offset) < maxDistance ? cursorPositions.INSIDE : null;
 };
 
 const nearPoint = (x, y, x1, y1, cursorPosition) => {
@@ -47,6 +47,26 @@ const positionWithinElement = (x, y, element) => {
             const end = nearPoint(x, y, x2, y2, cursorPositions.END);
 
             return start || end || on;
+        }
+
+        case toolTypes.PENCIL: {
+            const betweenAnyPoints = element.points?.some((point, index) => {
+                const nextPoint = element.points[index + 1];
+                if (!nextPoint) {
+                    return false;
+                }
+                return onLine({
+                    x1: point.x,
+                    y1: point.y,
+                    x2: nextPoint.x,
+                    y2: nextPoint.y,
+                    x,
+                    y,
+                    maxDistance: 5
+                })
+            })
+
+            return betweenAnyPoints ? cursorPositions.INSIDE : null;
         }
 
         default:

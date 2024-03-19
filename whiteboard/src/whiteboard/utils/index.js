@@ -7,3 +7,4 @@ export { getSvgPathFromStroke } from "./getSvgPathFromStroke";
 export { getElementAtPosition } from "./getElementAtPosition";
 export { getCursorForPosition } from "./getCursorForPosition";
 export { getResizedCoordinates } from "./getResizedCoordinates";
+export { updatePencilElementWhenMoving } from "./updateElement";
