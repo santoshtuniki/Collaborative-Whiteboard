@@ -5,7 +5,7 @@ import React from 'react';
 import { toolTypes } from '../constants';
 import { IconButton } from './IconButton';
 import {
-    rectangleIcon, lineIcon, rubberIcon, pencilIcon, textIcon
+    rectangleIcon, lineIcon, rubberIcon, pencilIcon, textIcon, selectionIcon
 } from '../resources/icons';
 
 export const Menu = () => {
@@ -16,6 +16,7 @@ export const Menu = () => {
             <IconButton src={rubberIcon} type={toolTypes.RUBBER} isRubber={true} />
             <IconButton src={pencilIcon} type={toolTypes.PENCIL} />
             <IconButton src={textIcon} type={toolTypes.TEXT} />
+            <IconButton src={selectionIcon} type={toolTypes.SELECTION} />
         </div>
     )
 }
