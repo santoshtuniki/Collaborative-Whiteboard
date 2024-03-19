@@ -12,7 +12,9 @@ export const updatePencilElementWhenMoving = ({ index, newPoints }, elements) =>
     const updatedPencilElement = {
         ...elementsCopy[index],
         points: newPoints
-    }
+    };
+    
+    elementsCopy[index] = updatedPencilElement;
     store.dispatch(setElements(elementsCopy));
     emitElementUpdates(updatedPencilElement);
 };
