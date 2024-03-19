@@ -1,11 +1,31 @@
+// module imports
+import { getStroke } from 'perfect-freehand';
+
 // component import
 import { toolTypes } from "../../constants";
+import { getSvgPathFromStroke } from '.';
 
-export const drawElement = ({roughCanvas, context, element}) => {
+const drawPencilElement = (context, element) => {
+    const myStroke = getStroke(element.points, {
+        size: 10,
+    });
+
+    const pathData = getSvgPathFromStroke(myStroke);
+
+    const myPath = new Path2D(pathData);
+    context.fill(myPath);
+};
+
+export const drawElement = ({ roughCanvas, context, element }) => {
     switch (element.type) {
         case toolTypes.LINE:
         case toolTypes.RECTANGLE: {
             return roughCanvas.draw(element.roughElement);
+        }
+
+        case toolTypes.PENCIL: {
+            drawPencilElement(context, element);
+            break;
         }
 
         default:

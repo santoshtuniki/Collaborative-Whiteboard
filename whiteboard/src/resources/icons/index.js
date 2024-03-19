@@ -2,5 +2,8 @@ import rectangleIcon from './rectangle.svg';
 import lineIcon from './line.svg';
 import rubberIcon from './rubber.svg';
 import pencilIcon from './pencil.svg';
+import textIcon from './text.svg';
 
-export { rectangleIcon, lineIcon, rubberIcon, pencilIcon }
+export {
+    rectangleIcon, lineIcon, rubberIcon, pencilIcon, textIcon
+}

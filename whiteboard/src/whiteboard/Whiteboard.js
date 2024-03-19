@@ -70,22 +70,26 @@ const Whiteboard = () => {
             return;
         }
 
-        if (
-            toolType === toolTypes.RECTANGLE ||
-            toolType === toolTypes.LINE ||
-            toolType === toolTypes.PENCIL
-        ) {
-            setAction(actions.DRAWING);
-            const element = createElement({
-                x1: clientX,
-                y1: clientY,
-                x2: clientX,
-                y2: clientY,
-                toolType,
-                id: uuid()
-            });
-            setSelectedElement(element);
-            dispatch(updateElementInStore(element));
+        switch (toolType) {
+            case toolTypes.RECTANGLE:
+            case toolTypes.LINE:
+            case toolTypes.PENCIL: {
+                setAction(actions.DRAWING);
+                const element = createElement({
+                    x1: clientX,
+                    y1: clientY,
+                    x2: clientX,
+                    y2: clientY,
+                    toolType,
+                    id: uuid()
+                });
+                setSelectedElement(element);
+                dispatch(updateElementInStore(element));
+                break;
+            }
+
+            default:
+                break;
         }
     };
 

@@ -4,7 +4,9 @@ import React from 'react';
 // component imports
 import { toolTypes } from '../constants';
 import { IconButton } from './IconButton';
-import { rectangleIcon, lineIcon, rubberIcon, pencilIcon } from '../resources/icons';
+import {
+    rectangleIcon, lineIcon, rubberIcon, pencilIcon, textIcon
+} from '../resources/icons';
 
 export const Menu = () => {
     return (
@@ -13,6 +15,7 @@ export const Menu = () => {
             <IconButton src={lineIcon} type={toolTypes.LINE} />
             <IconButton src={rubberIcon} type={toolTypes.RUBBER} isRubber={true} />
             <IconButton src={pencilIcon} type={toolTypes.PENCIL} />
+            <IconButton src={textIcon} type={toolTypes.TEXT} />
         </div>
     )
 }
