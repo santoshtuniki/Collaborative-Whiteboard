@@ -111,7 +111,7 @@ const Whiteboard = () => {
             case toolTypes.SELECTION: {
                 const element = getElementAtPosition(clientX, clientY, elements);
 
-                if (element && element.toolType === toolTypes.RECTANGLE) {
+                if (element && element.type === toolTypes.RECTANGLE) {
                     element?.position === cursorPositions.INSIDE ?
                         setAction(actions.MOVING) :
                         setAction(actions.RESIZING);
