@@ -113,7 +113,8 @@ const Whiteboard = () => {
 
                 if (element && (
                     element.type === toolTypes.RECTANGLE ||
-                    element.type === toolTypes.TEXT
+                    element.type === toolTypes.TEXT ||
+                    element.type === toolTypes.LINE
                 )) {
                     element?.position === cursorPositions.INSIDE ?
                         setAction(actions.MOVING) :

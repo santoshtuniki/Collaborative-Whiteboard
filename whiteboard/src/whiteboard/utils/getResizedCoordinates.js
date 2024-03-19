@@ -5,6 +5,7 @@ export const getResizedCoordinates = (clientX, clientY, position, coordinates) =
     const { x1, y1, x2, y2 } = coordinates;
 
     switch (position) {
+        case cursorPositions.START:
         case cursorPositions.TOP_LEFT: {
             return {
                 x1: clientX,
@@ -32,6 +33,7 @@ export const getResizedCoordinates = (clientX, clientY, position, coordinates) =
             }
         }
 
+        case cursorPositions.END:
         case cursorPositions.TOP_LEFT: {
             return {
                 x1,
